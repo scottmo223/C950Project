@@ -45,10 +45,10 @@ def findLongestDistance(location, options):
 
 # print(findLongestDistance(location, options))
 
-def loadTruck1FirstPackage(distanceObject):
+def initialPackage(distanceObject):
     firstColumnDistances = []
     for object in distanceObject:
         firstColumnDistances.append(object[1])
     shortestDistanceIndex = findShortestDistance(firstColumnDistances)
     
-    return firstColumnDistances
+    return shortestDistanceIndex

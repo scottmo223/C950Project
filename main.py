@@ -17,4 +17,4 @@ truck1 = []
 #print(distanceObject[4][1])
 #print(tools.findShortestDistance(distanceObject[1][1],distanceObject[4]))
 
-print(tools.loadTruck1FirstPackage(distanceObject))
+print(tools.initialPackage(distanceObject))
