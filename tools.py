@@ -30,4 +30,6 @@ def loadTruck1FirstPackage(distanceObject):
     firstColumnDistances = []
     for object in distanceObject:
         firstColumnDistances.append(object[1])
+    shortestDistanceIndex = findShortestDistance(firstColumnDistances)
+    
     return firstColumnDistances
