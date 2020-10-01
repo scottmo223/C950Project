@@ -23,5 +23,5 @@ class HashTable():
 
     #indexing an int just gives the int - should pass it in as a string.
     def getIndex(self, key): 
-        index = hash(key) % len(self.array)
+        index = hash(str(key)) % len(self.array)
         return index
