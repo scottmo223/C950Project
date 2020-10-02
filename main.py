@@ -8,7 +8,7 @@ distanceTable = 'WGUPS Distance Table.csv'
 
 packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file into a hash object
 
-print(packageHashTable.getItem('4').deliveryAddress)
+tools.checkPackageStatus(packageHashTable, '4')
 
 #distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
 #truck1 = []
