@@ -2,16 +2,19 @@
 # This is the hash table
 
 class HashTable():
-    """A Custom hash table."""
+    """
+    A Custom hash table. The default length is 1000, but
+    this can be changed for future growth.
+    """
 
     def __init__(self, length=1000):
         self.array = [None] * length
 
-    def addItem(self, key, data):
-        index = self.getIndex(key)
+    def addItem(self, data):
+        index = self.getIndex(data[0])
         if self.array[index] is None:
             self.array[index] = []
-        self.array[index].append([key, data])        
+        self.array[index].append(data)        
 
     def getItem(self, key):
         index = self.getIndex(key)

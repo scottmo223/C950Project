@@ -3,20 +3,20 @@
 import csv
 import hashTable
 
-def readCSVFile(file, makeArray = False):
+def readCSVFile(file, distanceTable = False):
     with open(file, newline='') as csvfile:
         csvReader = csv.reader(csvfile, delimiter=',')
         
-        if makeArray == True:
+        if distanceTable == True:
             newObject = []
             for row in csvReader:
                 newObject.append(row)
             return newObject
         else:
             newObject = hashTable.HashTable()
-            next(csvReader) #this grabs the header row and gets it out of the way
+            next(csvReader) #grab header row and get it out of the way
             for row in csvReader:
-                newObject.addItem(row[0],row)
+                newObject.addItem(row)
             return newObject
 
 def findShortestDistance(options): # I had (location, options) with the intent of having the address relevant somehow
