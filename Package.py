@@ -2,14 +2,14 @@
 # Package Class
 
 class Package:
-    def __init__(self, id, address, city, zip, deadline, weight):
+    def __init__(self, packageId, address, city, zipcode, deadline, weight):
         """
         Initiallize Package class.
         """
-        self.packageId = id
+        self.packageId = packageId
         self.deliveryAddress = address
         self.deliveryDeadline = deadline
         self.deliveryCity = city
-        self.deliveryZipcode = zip
+        self.deliveryZipcode = zipcode
         self.packageWeight = weight
         self.deliveryStatus = 'At the hub'
