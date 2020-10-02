@@ -24,6 +24,13 @@ class HashTable():
             if i.packageId == key:
                 return i
 
+    def getItemByAddress(self, address):
+        matchingItems = []
+        for i in self.array:
+            if i is not None and i[0].deliveryAddress == address:
+                matchingItems.append(i[0].packageId)
+        return matchingItems
+
     #indexing an int just gives the int - should pass it in as a string.
     def getIndex(self, key): 
         index = hash(str(key)) % len(self.array)

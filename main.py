@@ -12,16 +12,17 @@ packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file
 #tools.checkPackageStatus(packageHashTable, '4')
 
 distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
-# truck1 = Truck.Truck(1)
-# truck1.loadPackage('4')
-# truck1.loadPackage('2')
-# truck1.loadPackage('1')
-# print(truck1.packages)
-# print(truck1.deliverPackage())
+truck1 = Truck.Truck(1)
+firstPackageId = packageHashTable.getItemByAddress(tools.initialPackage(distanceObject))
+truck1.loadPackage(firstPackageId[0])
+print('delivered package id: ',truck1.deliverPackage())
 # print(truck1.deliverPackage())
 
-print(tools.initialPackage(distanceObject))
-print(tools.initialPackage(distanceObject,False))
+
+
+
+# print(tools.initialPackage(distanceObject))
+# print(tools.initialPackage(distanceObject,False))
 
 # for i in distanceObject:
 #     print(i)
