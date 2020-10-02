@@ -59,7 +59,8 @@ def checkPackageStatus(packageHashTable, passedId):
     """
     Printout of a package's status. passedId should be a string like '4'
     """
-    print('\nid: '.ljust(11, ' '), packageHashTable.getItem(passedId).packageId)
+    print()
+    print('id: '.ljust(11, ' '), packageHashTable.getItem(passedId).packageId)
     print('address: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryAddress)
     print('city: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryCity)
     print('zip: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryZipcode)
