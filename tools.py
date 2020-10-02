@@ -2,6 +2,7 @@
 
 import csv
 import hashTable
+import Package
 
 def readCSVFile(file, distanceTable = False):
     with open(file, newline='') as csvfile:
@@ -16,7 +17,8 @@ def readCSVFile(file, distanceTable = False):
             newObject = hashTable.HashTable()
             next(csvReader) #grab header row and get it out of the way
             for row in csvReader:
-                newObject.addItem(row)
+                newPackage = Package.Package(row[0],row[1],row[2],row[4],row[5],row[6])
+                newObject.addItem(newPackage)
             return newObject
 
 def findShortestDistance(options): # I had (location, options) with the intent of having the address relevant somehow

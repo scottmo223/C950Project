@@ -2,7 +2,7 @@
 # Package Class
 
 class Package:
-    def __init__(self, id, address, deadline, city, zip, weight):
+    def __init__(self, id, address, city, zip, deadline, weight):
         """
         Initiallize Package class.
         """

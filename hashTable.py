@@ -11,7 +11,7 @@ class HashTable():
         self.array = [None] * length
 
     def addItem(self, data):
-        index = self.getIndex(data[0])
+        index = self.getIndex(data.packageId)
         if self.array[index] is None:
             self.array[index] = []
         self.array[index].append(data)        
@@ -21,7 +21,7 @@ class HashTable():
         if self.array[index] is None:
             return print('no worky')
         for i in self.array[index]:
-            if i[0] == key:
+            if i.packageId == key:
                 return i
 
     #indexing an int just gives the int - should pass it in as a string.
