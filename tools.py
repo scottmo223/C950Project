@@ -21,39 +21,49 @@ def readCSVFile(file, distanceTable = False):
                 newObject.addItem(newPackage)
             return newObject
 
-def findShortestDistance(options): # I had (location, options) with the intent of having the address relevant somehow
+def findShortestDistance(options):
+    """
+    Finds the shortest distance in an array of numbers. 
+    Returns the index of the lowest number - not starting 
+    from 0, but from 1.
+    """
     shortestDistance = float(options[1])
     shortestDistanceIndex = 1
     for index, distance in enumerate(options[1:], start = 1):
         if distance != '' and float(distance) > 0 and float(distance) < shortestDistance:
             shortestDistance = float(distance)
             shortestDistanceIndex = index
-    # print(shortestDistance, shortestDistanceIndex)
     return shortestDistanceIndex
 
-def findLongestDistance(location, options):
+def findLongestDistance(options):
+    """
+    Finds the longest distance in an array of numbers. 
+    Returns the index of the highest number - not starting 
+    from 0, but from 1.
+    """
     longestDistance = float(0)
     longestDistanceIndex = 1
     for index, distance in enumerate(options[1:], start = 1):
         if distance != '' and float(distance) > 0 and float(distance) > longestDistance:
             longestDistance = float(distance)
             longestDistanceIndex = index
-    # print(longestDistance, longestDistanceIndex)
     return longestDistanceIndex
 
-#testing
-# location = '1060 Dalton Ave S'
-# options = ['2300 Parkway Blvd', '8.6', '6.3', '4', '5.1', '4.3', '9', '0', '3.6', '8.8', '9.4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-
-# print(findLongestDistance(location, options))
-
-def initialPackage(distanceObject):
+def initialPackage(distanceObject, shortestDistance = True):
+    """
+    Returns the address of recommended starting package in the
+    distanceObject Array. If shortestDistance = True (default) then 
+    returns the closest address, otherwise it will return the 
+    longest.
+    """
     firstColumnDistances = []
     for object in distanceObject:
         firstColumnDistances.append(object[1])
-    shortestDistanceIndex = findShortestDistance(firstColumnDistances)
-    
-    return shortestDistanceIndex
+    if shortestDistance == True:
+        distanceIndex = findShortestDistance(firstColumnDistances)
+    else:
+        distanceIndex = findLongestDistance(firstColumnDistances)
+    return distanceObject[distanceIndex][0]
 
 def checkPackageStatus(packageHashTable, passedId):
     """
