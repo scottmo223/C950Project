@@ -77,3 +77,16 @@ def checkPackageStatus(packageHashTable, passedId):
     print('weight: '.ljust(11, ' '), packageHashTable.getItem(passedId).packageWeight)
     print('status: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryStatus)
     print('deadline: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryDeadline)
+
+def statusOfAllPackages(packageHashTable):
+    #numberPackages = packageHashTable.keyAddressMap.count()
+    print()
+    print('ID'.ljust(3, ' '),'Status'.ljust(11, ' '), 'Address')
+    for package in packageHashTable.keyAddressMap: 
+        currentPackage = packageHashTable.getItem(package[0]) 
+        packageId = currentPackage.packageId
+        deliveryStatus = currentPackage.deliveryStatus
+        deliveryAddress = currentPackage.deliveryAddress
+        print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryAddress)
+    print()
+        
