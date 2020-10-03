@@ -4,7 +4,7 @@
 import hashTable
 
 class Truck:
-    def __init__(self, truckId, packagesInHub, capacity = 16):
+    def __init__(self, truckId, capacity = 16):
         """
         Initialized truck class.
         """
