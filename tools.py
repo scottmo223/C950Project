@@ -3,15 +3,16 @@
 import csv
 import hashTable
 import Package
+import AddressDistances
 
 def readCSVFile(file, distanceTable = False):
     with open(file, newline='') as csvfile:
         csvReader = csv.reader(csvfile, delimiter=',')
         
         if distanceTable == True:
-            newObject = []
+            newObject = AddressDistances.AddressDistances()
             for row in csvReader:
-                newObject.append(row)
+                newObject.addRow(row)
             return newObject
         else:
             newObject = hashTable.HashTable()
@@ -21,13 +22,17 @@ def readCSVFile(file, distanceTable = False):
                 newObject.addItem(newPackage)
             return newObject
 
-def findShortestDistance(options):
+def findShortestDistance(options, initialAddress = False):
     """
     Finds the shortest distance in an array of numbers. 
     Returns the index of the lowest number - not starting 
     from 0, but from 1.
+    If this is the inital address list, set initialAddress = True.
     """
-    shortestDistance = float(options[1])
+    if initialAddress == True:
+        shortestDistance = float(options[2])    
+    else:    
+        shortestDistance = float(options[1])
     shortestDistanceIndex = 1
     for index, distance in enumerate(options[1:], start = 1):
         if distance != '' and float(distance) > 0 and float(distance) < shortestDistance:
@@ -49,20 +54,33 @@ def findLongestDistance(options):
             longestDistanceIndex = index
     return longestDistanceIndex
 
-def initialPackage(distanceObject, shortestDistance = True):
+def initialAddress(distanceObject, shortestDistance = True):
     """
     Returns the address of recommended starting package in the
-    distanceObject Array. If shortestDistance = True (default) then 
+    distanceObject matrix. If shortestDistance = True (default) then 
     returns the closest address, otherwise it will return the 
     longest.
     """
     firstColumnDistances = []
-    for object in distanceObject:
+    for object in distanceObject.addressDistanceMatrix:
         firstColumnDistances.append(object[1])
     if shortestDistance == True:
-        distanceIndex = findShortestDistance(firstColumnDistances)
+        distanceIndex = findShortestDistance(firstColumnDistances, True)
     else:
         distanceIndex = findLongestDistance(firstColumnDistances)
+    return distanceObject.indexAddressMap.get(distanceIndex)
+
+def nextAddress(distanceObject, lastAddress):
+    """
+    Returns the address of the next shortest distance package delivery.
+    Requires the distanceObject table and the last loaded address.
+    """
+    lastAddressDistances = None
+    for i in distanceObject:
+        if i[0] == lastAddress.deliveryAddress:
+            lastAddressDistances = i
+            break
+    distanceIndex = findShortestDistance(lastAddressDistances)
     return distanceObject[distanceIndex][0]
 
 def checkPackageStatus(packageHashTable, passedId):
