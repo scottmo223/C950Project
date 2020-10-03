@@ -69,14 +69,15 @@ def checkPackageStatus(packageHashTable, passedId):
     """
     Printout of a package's status. passedId should be a string like '4'
     """
+    currentPackage = packageHashTable.getItem(passedId)
     print()
-    print('id: '.ljust(11, ' '), packageHashTable.getItem(passedId).packageId)
-    print('address: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryAddress)
-    print('city: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryCity)
-    print('zip: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryZipcode)
-    print('weight: '.ljust(11, ' '), packageHashTable.getItem(passedId).packageWeight)
-    print('status: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryStatus)
-    print('deadline: '.ljust(11, ' '), packageHashTable.getItem(passedId).deliveryDeadline)
+    print('id: '.ljust(11, ' '), currentPackage.packageId)
+    print('address: '.ljust(11, ' '), currentPackage.deliveryAddress)
+    print('city: '.ljust(11, ' '), currentPackage.deliveryCity)
+    print('zip: '.ljust(11, ' '), currentPackage.deliveryZipcode)
+    print('weight: '.ljust(11, ' '), currentPackage.packageWeight)
+    print('status: '.ljust(11, ' '), currentPackage.deliveryStatus)
+    print('deadline: '.ljust(11, ' '), currentPackage.deliveryDeadline)
 
 def statusOfAllPackages(packageHashTable):
     #numberPackages = packageHashTable.keyAddressMap.count()
