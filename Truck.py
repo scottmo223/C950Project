@@ -9,6 +9,7 @@ class Truck:
         self.truckId = truckId
         self.packages = []
         self.truckCapacity = capacity
+        self.mileage = 0
 
     def loadPackage(self, packageId):
         """
