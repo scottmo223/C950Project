@@ -9,16 +9,28 @@ distanceTable = 'WGUPS Distance Table.csv'
 
 packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file into a hash object
 distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
+packagesInHub = [i[0] for i in packageHashTable.keyAddressMap]
 
+#LETS START LOADING TRUCK 1
+truck1 = Truck.Truck(1, packagesInHub)
+firstPackageIds = packageHashTable.getItemsByAddress(tools.initialAddress(distanceObject))
+truck1.loadPackages(firstPackageIds, packageHashTable)
+print('I loaded your first package for you.')
+print('Truck1 packages: ', truck1.packagesOnTruck)
+print('Packages at hub: ', packageHashTable.packagesAtHub)
+print('Packages on trucks: ', packageHashTable.packagesOnTruck)
+print('Packages delivered: ', packageHashTable.packagesDelivered)
 
+# print('\nNow it\'s your turn. These are the packages left to load: ')
+# print(truck1.packagesLeftToLoad)
+# print('\nGet to work.')
+# nextPackagesToLoad = input('Enter a package number and press Enter. When done type "stop"',)
 
-
-# truck1 = Truck.Truck(1)
-# firstPackageId = packageHashTable.getItemByAddress(tools.initialPackage(distanceObject))
-# truck1.loadPackage(firstPackageId[0])
 # print('delivered package id: ',truck1.deliverPackage())
 # print(truck1.deliverPackage())
 
+#NO WORKY - GET THE NEXT CLOSEST ADDRESS FROM GIVEN ADDRESS (I don't think I can use this)
+# print(tools.nextAddress(distanceObject, packageHashTable.getItem('14')))
 
 #THIS WORKS - GET ALL PACKAGES WITH MATCHING ADDRESS
 # print('list of packages that match')
@@ -29,8 +41,8 @@ distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distanc
 # tools.statusOfAllPackages(packageHashTable)
 
 #THIS WORKS - PRINTS THE ADDRESS OF THE INITIAL PACKAGE, SHORTEST OR LONGEST
-# shortestAddress = tools.initialPackage(distanceObject)
-# longestAddress = tools.initialPackage(distanceObject,False)
+# shortestAddress = tools.initialAddress(distanceObject)
+# longestAddress = tools.initialAddress(distanceObject,False)
 # print(packageHashTable.getItemsByAddress(shortestAddress))
 # print(packageHashTable.getItemsByAddress(longestAddress))
 

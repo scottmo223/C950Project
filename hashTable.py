@@ -9,6 +9,9 @@ class HashTable():
     def __init__(self, length=1000):
         self.array = [None] * length
         self.keyAddressMap = []
+        self.packagesAtHub = []
+        self.packagesOnTruck = []
+        self.packagesDelivered = []
 
     def addItem(self, data):
         index = self.getIndex(data.packageId)
@@ -16,6 +19,7 @@ class HashTable():
             self.array[index] = []
         self.array[index].append(data)
         self.keyAddressMap.append([data.packageId,data.deliveryAddress])
+        self.packagesAtHub.append(data.packageId)
 
     def getItem(self, key):
         index = self.getIndex(key)

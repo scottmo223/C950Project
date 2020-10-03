@@ -1,24 +1,32 @@
 # Robert S Morales 000954923
 # Truck Class
 
+import hashTable
+
 class Truck:
-    def __init__(self, truckId, capacity = 16):
+    def __init__(self, truckId, packagesInHub, capacity = 16):
         """
         Initialized truck class.
         """
         self.truckId = truckId
-        self.packages = []
+        self.packagesOnTruck = []
         self.truckCapacity = capacity
         self.mileage = 0
 
-    def loadPackage(self, packageId):
+    def loadPackages(self, packageIds, packageHashTable):
         """
-        Add a package to the delivery queue.
+        Add a list of packages to the delivery queue. Will add package to
+        packagesOnTruck and remove package from packagesAtHub on the package
+        hash table.
         """
-        self.packages.append(packageId)
+        for packageId in packageIds:
+            self.packagesOnTruck.append(packageId)
+            packageHashTable.packagesOnTruck.append(packageId)
+            packageHashTable.packagesAtHub.remove(packageId)
+        return packageHashTable
 
     def deliverPackage(self):
         """
         Removes a package from the front of the queue and returns the package key.
         """
-        return self.packages.pop(0)
+        return self.packagesOnTruck.pop(0)
