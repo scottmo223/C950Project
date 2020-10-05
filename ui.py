@@ -45,19 +45,19 @@ def manualPackageLoading(truck, packageHashTable):
 
     print('\nPackages left to load:\n', packageHashTable.packagesAtHub)
     
-    try:
-        nextPackagesToLoad = [package for package in input('\nEnter package numbers separated by a space and then press Enter.\n').split()]
-        print(nextPackagesToLoad)
-        for package in nextPackagesToLoad:
-            if packageHashTable.packagesAtHub.count(package) == 0:
-                print('\n\n\n\n!!! You entered a package not at the hub!\n')
-                return truck, packageHashTable, True
-            if nextPackagesToLoad.count(package) > 1:
-                print('\n\n\n\n!!! You entered the same package twice!\n')
-                return truck, packageHashTable, True
-    except:
-        print('\n\n\n\n!!! Numbers only please.\n')
-        return truck, packageHashTable, True
+    nextPackagesToLoad = [package for package in input('\nEnter package numbers separated by a space and then press Enter.\n').split()]
+    packagesNowOnTruck = len(nextPackagesToLoad) + len(truck.packagesOnTruck)
+    if packagesNowOnTruck > truck.truckCapacity:
+        numPackagesToRemove = packagesNowOnTruck - truck.truckCapacity
+        nextPackagesToLoad = nextPackagesToLoad[:len(nextPackagesToLoad)-numPackagesToRemove]
+        print(f'\n\n\n\n### Too many packages, I took off {numPackagesToRemove} packages for you. ###\n')
+    for package in nextPackagesToLoad:
+        if packageHashTable.packagesAtHub.count(package) == 0:
+            print('\n\n\n\n!!! You entered a package not at the hub!\n')
+            return truck, packageHashTable, True
+        if nextPackagesToLoad.count(package) > 1:
+            print('\n\n\n\n!!! You entered the same package twice!\n')
+            return truck, packageHashTable, True
 
     truck.loadPackages(nextPackagesToLoad,packageHashTable)
     print('\n\nTruck 1 packages: ', truck.packagesOnTruck)
