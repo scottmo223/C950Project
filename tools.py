@@ -108,4 +108,3 @@ def statusOfAllPackages(packageHashTable):
         deliveryAddress = currentPackage.deliveryAddress
         print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryAddress)
     print()
-        
