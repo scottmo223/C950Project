@@ -36,27 +36,40 @@ def welcomeScreen(truck):
  
 
 def manualPackageLoading(truck, packageHashTable):
-    nextPackagesToLoad = [package for package in input('\nEnter package numbers separated by a space and then press Enter.\n').split()]
-    #check if any entered package is not at the hub
-    for package in nextPackagesToLoad:
-        if packageHashTable.packagesAtHub.count(package) == 0:
-            print('\n!!! You entered a package not at the hub!\n')
-            manualPackageLoading(truck, packageHashTable)
-        if nextPackagesToLoad.count(package) > 1:
-            print('\n!!! You enetered the same package twice!\n')
-            manualPackageLoading(truck, packageHashTable)
+    if len(packageHashTable.packagesAtHub) < 1:
+        print('There are no more packages left to load.')
+        return truck, packageHashTable, False
+    if truck.truckCapacity - len(truck.packagesOnTruck) < 1:
+        print('There is no more room on the truck.')
+        return truck, packageHashTable, False
+
+    print('\nPackages left to load:\n', packageHashTable.packagesAtHub)
+    
+    try:
+        nextPackagesToLoad = [package for package in input('\nEnter package numbers separated by a space and then press Enter.\n').split()]
+        print(nextPackagesToLoad)
+        for package in nextPackagesToLoad:
+            if packageHashTable.packagesAtHub.count(package) == 0:
+                print('\n\n\n\n!!! You entered a package not at the hub!\n')
+                return truck, packageHashTable, True
+            if nextPackagesToLoad.count(package) > 1:
+                print('\n\n\n\n!!! You entered the same package twice!\n')
+                return truck, packageHashTable, True
+    except:
+        print('\n\n\n\n!!! Numbers only please.\n')
+        return truck, packageHashTable, True
 
     truck.loadPackages(nextPackagesToLoad,packageHashTable)
-    print('\n\nTruck1 packages: ', truck.packagesOnTruck)
+    print('\n\nTruck 1 packages: ', truck.packagesOnTruck)
     print('\nPackages left to load: ', packageHashTable.packagesAtHub)
     spaceInTruck1 = truck.truckCapacity - len(truck.packagesOnTruck)
-    print(f'\nTruck1 can hold {spaceInTruck1} more packages. Load more?')
+    print(f'\nTruck 1 can hold {spaceInTruck1} more packages. Load more?')
 
     keepLoading = input('Type y to load more or n to move on.\n')
     if keepLoading == 'y':
-        manualPackageLoading(truck, packageHashTable)
+        return truck, packageHashTable, True
     else:
-        return truck, packageHashTable
+        return truck, packageHashTable, False
 
 def mainMenu():
     print('''

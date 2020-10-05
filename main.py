@@ -11,18 +11,21 @@ distanceTable = 'WGUPS Distance Table.csv'
 packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file into a hash object
 distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
 
-#LETS START LOADING TRUCK 1
 truck1 = Truck.Truck(1)
 firstPackageIds = packageHashTable.getItemsByAddress(tools.initialAddress(distanceObject))
 truck1.loadPackages(firstPackageIds, packageHashTable)
 
-userInput = ui.welcomeScreen(truck1)
-if userInput != '1':
-    raise SystemExit(0)
+# userInput = ui.welcomeScreen(truck1)
+# if userInput != '1':
+#     raise SystemExit(0)
 
-userInput = ui.mainMenu()
-if userInput == '1':
-    ui.manualPackageLoading(truck1, packageHashTable)
+runManualPackageLoading = True
+while runManualPackageLoading:
+    truck1, packageHashTable, runManualPackageLoading = ui.manualPackageLoading(truck1, packageHashTable)
+
+# userInput = ui.mainMenu()
+# if userInput == '1':
+    # ui.manualPackageLoading(truck1, packageHashTable)
 
 
 
