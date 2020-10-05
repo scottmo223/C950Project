@@ -9,23 +9,70 @@ def checkPackageStatus():
     print(f'\nYou entered Package ID: {packageId}')
     print(f'You entered Time: {time}\n\n')
 
-print('''
+def welcomeScreen(truck):
+    print('''
 
 
 
-Hello,
+    Hello,
 
-Welcome to the WGUPS application by Robert Morales.
+    Welcome to the WGUPS application by Robert Morales.
+    
+    
+    I loaded your first package for you...
+    ''')
+    print('\tTruck 1 packages: ', truck.packagesOnTruck)
 
-In the Input below:
- * Press "s" to view the status of a package
- * Press "q" to quit the application
+    print('''
+    Now it\'s your turn.
+    Get to work.
+    
+    * Type 1 to get started
+    * Type anything else to quit the application
 
-''')
-actionEntered = input('Input: ')
+    ''')
 
-if actionEntered == 's' or 'S':
-    checkPackageStatus()
+    return input()
+ 
+
+def manualPackageLoading(truck, packageHashTable):
+    nextPackagesToLoad = [package for package in input('\nEnter package numbers separated by a space and then press Enter.\n').split()]
+    #check if any entered package is not at the hub
+    for package in nextPackagesToLoad:
+        if packageHashTable.packagesAtHub.count(package) == 0:
+            print('\n!!! You entered a package not at the hub!\n')
+            manualPackageLoading(truck, packageHashTable)
+        if nextPackagesToLoad.count(package) > 1:
+            print('\n!!! You enetered the same package twice!\n')
+            manualPackageLoading(truck, packageHashTable)
+
+    truck.loadPackages(nextPackagesToLoad,packageHashTable)
+    print('\n\nTruck1 packages: ', truck.packagesOnTruck)
+    print('\nPackages left to load: ', packageHashTable.packagesAtHub)
+    spaceInTruck1 = truck.truckCapacity - len(truck.packagesOnTruck)
+    print(f'\nTruck1 can hold {spaceInTruck1} more packages. Load more?')
+
+    keepLoading = input('Type y to load more or n to move on.\n')
+    if keepLoading == 'y':
+        manualPackageLoading(truck, packageHashTable)
+    else:
+        return truck, packageHashTable
+
+def mainMenu():
+    print('''
+    
+    Choose an option:
+      1 Load packages onto truck 1
+      2 Load packages onto truck 2
+      3 Set time to send truck 1
+      4 Set time to send truck 2
+      5 Send trucks
+      6 Detailed status of a package
+      7 Status of all packages
+      0 Quit the application
+    ''')
+    return input()
+    
 
 
 
