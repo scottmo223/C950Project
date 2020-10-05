@@ -3,6 +3,7 @@
 import hashTable
 import tools
 import Truck
+import ui
 
 packageFile = 'WGUPS Package File.csv'
 distanceTable = 'WGUPS Distance Table.csv'
@@ -11,24 +12,25 @@ packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file
 distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
 
 #LETS START LOADING TRUCK 1
-# truck1 = Truck.Truck(1)
-# firstPackageIds = packageHashTable.getItemsByAddress(tools.initialAddress(distanceObject))
-# truck1.loadPackages(firstPackageIds, packageHashTable)
-# print('I loaded your first package for you.')
-# print('Truck1 packages: ', truck1.packagesOnTruck)
-# print('Packages at hub: ', packageHashTable.packagesAtHub)
-# print('Packages on trucks: ', packageHashTable.packagesOnTruck)
-# print('Packages delivered: ', packageHashTable.packagesDelivered)
+truck1 = Truck.Truck(1)
+firstPackageIds = packageHashTable.getItemsByAddress(tools.initialAddress(distanceObject))
+truck1.loadPackages(firstPackageIds, packageHashTable)
 
-# print('\nNow it\'s your turn. These are the packages left to load: ')
-# print(truck1.packagesLeftToLoad)
-# print('\nGet to work.')
-# nextPackagesToLoad = input('Enter a package number and press Enter. When done type "stop"',)
+userInput = ui.welcomeScreen(truck1)
+if userInput != '1':
+    raise SystemExit(0)
+
+userInput = ui.mainMenu()
+if userInput == '1':
+    ui.manualPackageLoading(truck1, packageHashTable)
+
+
+
 
 # print('delivered package id: ',truck1.deliverPackage())
 # print(truck1.deliverPackage())
 
-#NO WORKY - GET THE NEXT CLOSEST ADDRESS FROM GIVEN ADDRESS (I don't think I can use this)
+#NO WORKY - GET THE NEXT CLOSEST ADDRESS FROM GIVEN ADDRESS 
 # print(tools.nextAddress(distanceObject, packageHashTable.getItem('14')))
 
 #THIS WORKS - GET ALL PACKAGES WITH MATCHING ADDRESS
