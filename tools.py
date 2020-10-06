@@ -97,6 +97,7 @@ def checkPackageStatus(packageHashTable, passedId):
     print('weight: '.ljust(11, ' '), currentPackage.packageWeight)
     print('status: '.ljust(11, ' '), currentPackage.deliveryStatus)
     print('deadline: '.ljust(11, ' '), currentPackage.deliveryDeadline)
+    print('delivered:'.ljust(11, ' '), currentPackage.deliveryTime)
 
 def statusOfAllPackages(packageHashTable):
     #numberPackages = packageHashTable.keyAddressMap.count()
@@ -132,6 +133,8 @@ def deliverPackage(truck, packageHashTable, distanceObject):
 
         # print(f'Delivery {i+1}: ',packageAddress,'Delivering package ',packageKey)
         # print('Miles traveled: ',round(truck.mileage,1),' Time Delivered: ',packageHashTable.runningTime)
+    
+    return truck, packageHashTable, distanceObject
         
 
 def calculateTime(mph, distance):

@@ -38,7 +38,7 @@ packageHashTable.runningTime = timedelta(hours = hour, minutes = minute)
 
 #DELIVER PACKAGES
 print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
-tools.deliverPackage(truck1, packageHashTable, distanceObject)
+truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
 
 #GO TO MAIN MENU
 # userInput = ui.mainMenu()
@@ -46,6 +46,8 @@ tools.deliverPackage(truck1, packageHashTable, distanceObject)
     # ui.manualPackageLoading(truck1, packageHashTable)
 
 
+tools.checkPackageStatus(packageHashTable, '3')
+print('mileage: ',round(truck1.mileage,1), ' time: ',packageHashTable.runningTime)
 
 
 # print('delivered package id: ',truck1.deliverPackage())
@@ -60,7 +62,7 @@ tools.deliverPackage(truck1, packageHashTable, distanceObject)
 # print(packageList)
 
 #THIS WORKS - PRINTOUT LIST OF ALL PACKAGE STATUSES
-# tools.statusOfAllPackages(packageHashTable)
+tools.statusOfAllPackages(packageHashTable)
 
 #THIS WORKS - PRINTS THE ADDRESS OF THE INITIAL PACKAGE, SHORTEST OR LONGEST
 # shortestAddress = tools.initialAddress(distanceObject)
