@@ -11,6 +11,7 @@ class Truck:
         self.truckId = truckId
         self.packagesOnTruck = []
         self.truckCapacity = capacity
+        self.mph = 18
         self.mileage = 0
 
     def loadPackages(self, packageIds, packageHashTable):

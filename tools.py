@@ -69,7 +69,7 @@ def initialAddress(distanceObject, shortestDistance = True):
         distanceIndex = findShortestDistance(firstColumnDistances, True)
     else:
         distanceIndex = findLongestDistance(firstColumnDistances)
-    return distanceObject.indexAddressMap.get(distanceIndex)
+    return distanceObject.indexAddressMap[distanceIndex]
 
 def nextAddress(distanceObject, lastAddress):
     """
@@ -110,18 +110,32 @@ def statusOfAllPackages(packageHashTable):
         print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryAddress)
     print()
 
-def deliverPackage(truck, packageHashTable):
+def deliverPackage(truck, packageHashTable, distanceObject):
     packageCounter = len(truck.packagesOnTruck)
+    
     for i in range(0, packageCounter):
         packageKey = truck.packagesOnTruck[0]
-        truck.deliverPackage()
-        #update truck.mileage
-        packageHashTable.deliverPackage(packageKey)
+        packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
+        lastAddressIndex = distanceObject.addressesVisited[-1]
+        currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
+        # Need the longest distance to be the first index
+        if currentAddressIndex < lastAddressIndex:
+            distanceTraveled = float(distanceObject.addressDistanceMatrix[lastAddressIndex][currentAddressIndex])
+        else:
+            distanceTraveled = float(distanceObject.addressDistanceMatrix[currentAddressIndex][lastAddressIndex])
+        time = calculateTime(truck.mph, distanceTraveled)
 
-def addTime(mph, distance, packageHashTable):
+        packageHashTable.deliverPackage(packageKey, time)
+        truck.deliverPackage()
+        distanceObject.deliverPackage(currentAddressIndex)
+        truck.mileage += distanceTraveled
+
+        # print(f'Delivery {i+1}: ',packageAddress,'Delivering package ',packageKey)
+        # print('Miles traveled: ',round(truck.mileage,1),' Time Delivered: ',packageHashTable.runningTime)
+        
+
+def calculateTime(mph, distance):
     timeInHours = distance/mph
     time = timedelta(hours = timeInHours)
     print('time: ', time)
-    runningTime += time
-    return runningTime
-
+    return time

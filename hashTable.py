@@ -47,6 +47,8 @@ class HashTable():
         index = hash(str(key)) % len(self.array)
         return index
 
-    def deliverPackage(self, key):
+    def deliverPackage(self, key, time):
         self.packagesOnTruck.remove(key)
         self.packagesDelivered.append(key)
+        self.runningTime += time
+        self.getItem(key).deliveryTime = self.runningTime

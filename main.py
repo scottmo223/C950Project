@@ -9,8 +9,9 @@ from datetime import timedelta
 packageFile = 'WGUPS Package File.csv'
 distanceTable = 'WGUPS Distance Table.csv'
 
-packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file into a hash object
-distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
+#LOAD CSV FILES
+packageHashTable = tools.readCSVFile(packageFile)
+distanceObject = tools.readCSVFile(distanceTable, True) 
 
 truck1 = Truck.Truck(1)
 firstPackageIds = packageHashTable.getItemsByAddress(tools.initialAddress(distanceObject))
@@ -22,7 +23,7 @@ if userInput != '1':
     raise SystemExit(0)
 
 #MANUALLY LOAD TRUCK
-loadingType = input('\n** Press 1 to auto-load, press 2 to manually load packages **')
+loadingType = input('\n** Press 1 to auto-load, press 2 to manually load packages **\n')
 if loadingType == '1':
     truck1, packageHashTable = ui.autoPackageLoading(truck1, packageHashTable)
 else:
@@ -37,7 +38,7 @@ packageHashTable.runningTime = timedelta(hours = hour, minutes = minute)
 
 #DELIVER PACKAGES
 print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
-tools.deliverPackage(truck1, packageHashTable)
+tools.deliverPackage(truck1, packageHashTable, distanceObject)
 
 #GO TO MAIN MENU
 # userInput = ui.mainMenu()
