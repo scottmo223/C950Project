@@ -10,7 +10,7 @@ class AddressDistances():
         self.indexAddressMap = {}
         self.addressesVisited = []
         self.addressesNotVisited = []
-        self.counter = 0
+        self.counter = 0 #This is for indexAddressMap creation
 
     def addRow(self, data):
         self.addressDistanceMatrix.append(data)
@@ -19,6 +19,12 @@ class AddressDistances():
             self.addressesNotVisited.append(self.counter)
         self.counter += 1
 
-    def addressVisited(self, addressIndex):
-        self.addressesVisited.append(int(addressIndex))
-        self.addressesNotVisited.remove(int(addressIndex))
+    def deliverPackage(self, addressIndex):
+        if self.addressesVisited.count(addressIndex) > 0:   #not sure why i'd need to display this - consider deleting
+            print("\n\n*** Already Visited This one ***\n\n") 
+        else:
+            self.addressesVisited.append(int(addressIndex))
+            self.addressesNotVisited.remove(int(addressIndex))
+            print('addresses visited: ', self.addressesVisited)
+
+    

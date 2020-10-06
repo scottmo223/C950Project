@@ -4,6 +4,7 @@ import csv
 import hashTable
 import Package
 import AddressDistances
+from datetime import timedelta
 
 def readCSVFile(file, distanceTable = False):
     with open(file, newline='') as csvfile:
@@ -108,3 +109,19 @@ def statusOfAllPackages(packageHashTable):
         deliveryAddress = currentPackage.deliveryAddress
         print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryAddress)
     print()
+
+def deliverPackage(truck, packageHashTable):
+    packageCounter = len(truck.packagesOnTruck)
+    for i in range(0, packageCounter):
+        packageKey = truck.packagesOnTruck[0]
+        truck.deliverPackage()
+        #update truck.mileage
+        packageHashTable.deliverPackage(packageKey)
+
+def addTime(mph, distance, packageHashTable):
+    timeInHours = distance/mph
+    time = timedelta(hours = timeInHours)
+    print('time: ', time)
+    runningTime += time
+    return runningTime
+

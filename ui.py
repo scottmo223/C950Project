@@ -71,6 +71,15 @@ def manualPackageLoading(truck, packageHashTable):
     else:
         return truck, packageHashTable, False
 
+def autoPackageLoading(truck, packageHashTable):
+    packagesToLoad = packageHashTable.packagesAtHub
+    truckCapacity = truck.truckCapacity - len(truck.packagesOnTruck)
+    nextPackagesToLoad = packagesToLoad[:truckCapacity]
+    truck.loadPackages(nextPackagesToLoad,packageHashTable)
+    print('\n\nTruck 1 packages: ', truck.packagesOnTruck)
+    print('\nPackages left to load: ', packageHashTable.packagesAtHub)
+    return truck, packageHashTable
+
 def mainMenu():
     print('''
     
@@ -86,6 +95,12 @@ def mainMenu():
     ''')
     return input()
     
-
+def setTruckDepartingTime():
+    print('\n\nWhat time should the truck depart?')
+    print('Please use 24Hr time in this format: ####    ex: 1346')
+    userDepartureTime = input()
+    hour = int(userDepartureTime[:2])
+    minute = int(userDepartureTime[2:])
+    return hour, minute
 
 
