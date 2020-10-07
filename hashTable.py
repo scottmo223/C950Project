@@ -14,6 +14,7 @@ class HashTable():
         self.packagesAtHub = []
         self.packagesOnTruck = []
         self.packagesDelivered = []
+        #MIGHT NEED A TIMEDELIVERED TRACKING HERE (NM THATS IN THE PACKAGE OBJECT)
         self.runningTime = None
 
     def addItem(self, data):

@@ -13,6 +13,7 @@ class Truck:
         self.truckCapacity = capacity
         self.mph = 18
         self.mileage = 0
+        self.addressesVisited = [1]
 
     def loadPackages(self, packageIds, packageHashTable):
         """
@@ -26,8 +27,13 @@ class Truck:
             packageHashTable.packagesAtHub.remove(packageId)
         return packageHashTable
 
-    def deliverPackage(self):
+    def deliverPackage(self, addressIndex):
         """
         Removes a package from the front of the queue and returns the package key.
         """
+        if self.addressesVisited.count(addressIndex) > 0:   
+            #if already at this address, do nothing
+            pass
+        else:
+            self.addressesVisited.append(int(addressIndex))
         return self.packagesOnTruck.pop(0)

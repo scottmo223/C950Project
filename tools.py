@@ -117,7 +117,7 @@ def deliverPackage(truck, packageHashTable, distanceObject):
     for i in range(0, packageCounter):
         packageKey = truck.packagesOnTruck[0]
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
-        lastAddressIndex = distanceObject.addressesVisited[-1]
+        lastAddressIndex = truck.addressesVisited[-1]
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
         print(f'last address: {lastAddressIndex} current Address: {currentAddressIndex}')
         # Need the longest distance to be the first index
@@ -128,8 +128,8 @@ def deliverPackage(truck, packageHashTable, distanceObject):
         time = calculateTime(truck.mph, distanceTraveled)
 
         packageHashTable.deliverPackage(packageKey, time)
-        truck.deliverPackage()
-        distanceObject.deliverPackage(currentAddressIndex)
+        truck.deliverPackage(currentAddressIndex)
+        # distanceObject.deliverPackage(currentAddressIndex)
         truck.mileage += distanceTraveled
 
     return truck, packageHashTable, distanceObject
