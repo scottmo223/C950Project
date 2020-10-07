@@ -150,6 +150,16 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
     sortedPackagesList.append(packagesOnTruck[nextAddressKey])
     del packagesOnTruck[nextAddressKey]
     
+
+    print('next: ',nextAddressKey,' start: ',startAddressKey)
+    startAddressKey = nextAddressKey
+    # for packageKey in packagesOnTruck:
+    #     packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
+    #     currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
+    #     distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][1]))
+    # nextAddressKey = findShortestDistance(distancesFromStartAddress)
+    # sortedPackagesList.append(packagesOnTruck[nextAddressKey])
+    # del packagesOnTruck[nextAddressKey]
     
     # print(packagesOnTruck)
     # print(sortedPackagesList)
