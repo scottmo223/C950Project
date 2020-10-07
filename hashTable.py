@@ -14,7 +14,6 @@ class HashTable():
         self.packagesAtHub = []
         self.packagesOnTruck = []
         self.packagesDelivered = []
-        #MIGHT NEED A TIMEDELIVERED TRACKING HERE (NM THATS IN THE PACKAGE OBJECT)
         self.runningTime = None
 
     def addItem(self, data):
@@ -43,7 +42,6 @@ class HashTable():
                 matchingAddresses.append(self.getItem(i[0]))
         return matchingAddresses
 
-    #indexing an int just gives the int - should pass it in as a string.
     def getIndex(self, key): 
         index = hash(str(key)) % len(self.array)
         return index

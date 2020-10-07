@@ -55,21 +55,21 @@ def findLongestDistance(options):
             longestDistanceIndex = index
     return longestDistanceIndex
 
-def initialAddress(distanceObject, shortestDistance = True):
+def initialAddress(distances, shortestDistance = True):
     """
     Returns the address of recommended starting package in the
-    distanceObject matrix. If shortestDistance = True (default) then 
+    distances matrix. If shortestDistance = True (default) then 
     returns the closest address, otherwise it will return the 
     longest.
     """
     firstColumnDistances = []
-    for object in distanceObject.addressDistanceMatrix:
-        firstColumnDistances.append(object[1])
+    for i in distances:
+        firstColumnDistances.append(i[1])
     if shortestDistance == True:
         distanceIndex = findShortestDistance(firstColumnDistances, True)
     else:
         distanceIndex = findLongestDistance(firstColumnDistances)
-    return distanceObject.indexAddressMap[distanceIndex]
+    return distances.indexAddressMap[distanceIndex]
 
 def nextAddress(distanceObject, lastAddress):
     """
@@ -134,6 +134,25 @@ def deliverPackage(truck, packageHashTable, distanceObject):
 
     return truck, packageHashTable, distanceObject
         
+
+def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
+    sortedPackagesList = []
+    distancesFromStartAddress = []
+    packagesOnTruck = truck.packagesOnTruck
+    startAddressKey = truck.addressesVisited[0] 
+    nextAddressKey = startAddressKey
+    #find shortest distance from hub
+    for packageKey in packagesOnTruck:
+        packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
+        currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
+        distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][1]))
+    nextAddressKey = findShortestDistance(distancesFromStartAddress)
+    sortedPackagesList.append(packagesOnTruck[nextAddressKey])
+    del packagesOnTruck[nextAddressKey]
+    
+    
+    # print(packagesOnTruck)
+    # print(sortedPackagesList)
 
 def calculateTime(mph, distance):
     timeInHours = distance/mph
