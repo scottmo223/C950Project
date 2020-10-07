@@ -43,28 +43,32 @@ truck3, packageHashTable = ui.autoPackageLoading(truck3, packageHashTable)
 # print('packages on truck 2: ', truck2.packagesOnTruck)
 # print('packages on truck 3: ', truck3.packagesOnTruck)
 
-tools.sortPackagesOnTruck(truck1, packageHashTable, distanceObject)
+truck1 = tools.sortPackagesOnTruck(truck1, packageHashTable, distanceObject)
+truck2 = tools.sortPackagesOnTruck(truck2, packageHashTable, distanceObject)
+truck3 = tools.sortPackagesOnTruck(truck3, packageHashTable, distanceObject)
+print(truck1.packagesOnTruck)
+print(truck2.packagesOnTruck)
+print(truck3.packagesOnTruck)
 
 
+# SET TIME FOR DEPARTURE
+packageHashTable.runningTime = timedelta(hours = 8, minutes = 0)
 
-#SET TIME FOR DEPARTURE !!!! wont need this anymore !!!!
-# packageHashTable.runningTime = timedelta(hours = 8, minutes = 0)
+#DELIVER PACKAGES
+# print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
+print('truck1')
+truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
+print('truck2')
+truck2, packageHashTable, distanceObject = tools.deliverPackage(truck2, packageHashTable, distanceObject)
+print('truck3')
+truck3, packageHashTable, distanceObject = tools.deliverPackage(truck3, packageHashTable, distanceObject)
 
-# #DELIVER PACKAGES
-# # print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
-# print('truck1')
-# truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
-# print('truck2')
-# truck2, packageHashTable, distanceObject = tools.deliverPackage(truck2, packageHashTable, distanceObject)
-# print('truck3')
-# truck3, packageHashTable, distanceObject = tools.deliverPackage(truck3, packageHashTable, distanceObject)
-
-# #PRINT THE DELIVERY DETAILS
-# print('\n\n\nStarted at 8am, ended at: ',packageHashTable.runningTime)
-# print('\nTruck 1 mileage: ',round(truck1.mileage,1))
-# print('Truck 2 mileage: ',round(truck2.mileage,1))
-# print('Truck 3 mileage: ',round(truck3.mileage,1))
-# print('\nTotal Mileage: ', round((truck1.mileage+truck2.mileage+truck3.mileage),1))
+#PRINT THE DELIVERY DETAILS
+print('\n\n\nStarted at 8am, ended at: ',packageHashTable.runningTime)
+print('\nTruck 1 mileage: ',round(truck1.mileage,1))
+print('Truck 2 mileage: ',round(truck2.mileage,1))
+print('Truck 3 mileage: ',round(truck3.mileage,1))
+print('\nTotal Mileage: ', round((truck1.mileage+truck2.mileage+truck3.mileage),1))
 
 # #GO TO MAIN MENU
 # userInput = ui.mainMenu()

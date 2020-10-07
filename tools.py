@@ -34,9 +34,9 @@ def findShortestDistance(options, initialAddress = False):
         shortestDistance = float(options[2])    
     else:    
         shortestDistance = float(options[1])
-    shortestDistanceIndex = 1
-    for index, distance in enumerate(options[1:], start = 1):
-        if distance != '' and float(distance) > 0 and float(distance) < shortestDistance:
+    shortestDistanceIndex = 0
+    for index, distance in enumerate(options):
+        if distance != '' and float(distance) < shortestDistance:
             shortestDistance = float(distance)
             shortestDistanceIndex = index
     return shortestDistanceIndex
@@ -146,26 +146,31 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
         distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][1]))
-    nextAddressKey = findShortestDistance(distancesFromStartAddress)
-    sortedPackagesList.append(packagesOnTruck[nextAddressKey])
-    del packagesOnTruck[nextAddressKey]
-    
+    tempPackageListIndex = findShortestDistance(distancesFromStartAddress)
+    sortedPackagesList.append(packagesOnTruck[tempPackageListIndex])
+    startPackageKey = packagesOnTruck.pop(tempPackageListIndex)
+    #Now the rest of the packages
+    while len(packagesOnTruck) > 1:
+        distancesFromStartAddress.clear()
+        startPackageAddress = packageHashTable.getItem(startPackageKey).deliveryAddress
+        startPackageAddressIndex = distanceObject.indexAddressMap.index(startPackageAddress)
+        for packageKey in packagesOnTruck:
+            packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
+            currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
+            if currentAddressIndex < startPackageAddressIndex:
+                distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[startPackageAddressIndex][currentAddressIndex]))
+            else:
+                distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][startPackageAddressIndex]))
 
-    print('next: ',nextAddressKey,' start: ',startAddressKey)
-    startAddressKey = nextAddressKey
-    # for packageKey in packagesOnTruck:
-    #     packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
-    #     currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
-    #     distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][1]))
-    # nextAddressKey = findShortestDistance(distancesFromStartAddress)
-    # sortedPackagesList.append(packagesOnTruck[nextAddressKey])
-    # del packagesOnTruck[nextAddressKey]
-    
-    # print(packagesOnTruck)
-    # print(sortedPackagesList)
+        tempPackageListIndex = findShortestDistance(distancesFromStartAddress)
+        sortedPackagesList.append(packagesOnTruck[tempPackageListIndex])
+        startPackageKey = packagesOnTruck.pop(tempPackageListIndex)
+        startAddressKey = nextAddressKey
+    sortedPackagesList.append(packagesOnTruck[0])
+    truck.packagesOnTruck = sortedPackagesList
+    return truck
 
 def calculateTime(mph, distance):
     timeInHours = distance/mph
     time = timedelta(hours = timeInHours)
-    # print('time: ', time)
     return time
