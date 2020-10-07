@@ -18,11 +18,11 @@ class AddressDistances():
         if self.counter != 0:
             self.addressesNotVisited.append(self.counter)
         self.counter += 1
-        print(self.indexAddressMap)
 
     def deliverPackage(self, addressIndex):
         if self.addressesVisited.count(addressIndex) > 0:   #not sure why i'd need to display this - consider deleting
-            print("\n\n*** Already Visited This one ***\n\n") 
+            # print("\n\n*** Already Visited This one ***\n\n") 
+            pass
         else:
             self.addressesVisited.append(int(addressIndex))
             self.addressesNotVisited.remove(int(addressIndex))

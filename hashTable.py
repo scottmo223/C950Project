@@ -34,12 +34,12 @@ class HashTable():
 
     def getItemsByAddress(self, address):
         """
-        Returns a list of package keys matching the given address.
+        Returns a list of package matching the given address.
         """
         matchingAddresses = []
         for i in self.keyAddressMap:
             if i[1] == address:
-                matchingAddresses.append(i[0])
+                matchingAddresses.append(self.getItem(i[0]))
         return matchingAddresses
 
     #indexing an int just gives the int - should pass it in as a string.

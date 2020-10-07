@@ -9,7 +9,7 @@ def checkPackageStatus():
     print(f'\nYou entered Package ID: {packageId}')
     print(f'You entered Time: {time}\n\n')
 
-def welcomeScreen(truck):
+def welcomeScreen():
     print('''
 
 
@@ -18,14 +18,6 @@ def welcomeScreen(truck):
 
     Welcome to the WGUPS application by Robert Morales.
     
-    
-    I loaded your first package for you...
-    ''')
-    print('\tTruck 1 packages: ', truck.packagesOnTruck)
-
-    print('''
-    Now it\'s your turn.
-    Get to work.
     
     * Type 1 to get started
     * Type anything else to quit the application
@@ -75,8 +67,8 @@ def autoPackageLoading(truck, packageHashTable):
     truckCapacity = truck.truckCapacity - len(truck.packagesOnTruck)
     nextPackagesToLoad = packagesToLoad[:truckCapacity]
     truck.loadPackages(nextPackagesToLoad,packageHashTable)
-    print('\n\nTruck 1 packages: ', truck.packagesOnTruck)
-    print('\nPackages left to load: ', packageHashTable.packagesAtHub)
+    print(f'\n\nPackages on Truck {truck.truckId} : ', truck.packagesOnTruck)
+    # print('\nPackages left to load: ', packageHashTable.packagesAtHub)  #!!!! Can delete this!!!
     return truck, packageHashTable
 
 def mainMenu():
@@ -85,11 +77,8 @@ def mainMenu():
     Choose an option:
       1 Load packages onto truck 1
       2 Load packages onto truck 2
-      3 Set time to send truck 1
-      4 Set time to send truck 2
-      5 Send trucks
-      6 Detailed status of a package
-      7 Status of all packages
+      3 Detailed status of a package
+      4 Status of all packages
       0 Quit the application
     ''')
     return input()
