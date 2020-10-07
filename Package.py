@@ -12,4 +12,4 @@ class Package:
         self.deliveryCity = city
         self.deliveryZipcode = zipcode
         self.packageWeight = weight
-        self.deliveryStatus = 'At the hub'
+        self.deliveryTime = None

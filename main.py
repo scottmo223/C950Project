@@ -4,27 +4,50 @@ import hashTable
 import tools
 import Truck
 import ui
+from datetime import timedelta
 
 packageFile = 'WGUPS Package File.csv'
 distanceTable = 'WGUPS Distance Table.csv'
 
-packageHashTable = tools.readCSVFile(packageFile) # This loads the data csv file into a hash object
-distanceObject = tools.readCSVFile(distanceTable, True) # This loads the distance csv file into a hash object
+#LOAD CSV FILES
+packageHashTable = tools.readCSVFile(packageFile)
+distanceObject = tools.readCSVFile(distanceTable, True) 
 
-#LETS START LOADING TRUCK 1
 truck1 = Truck.Truck(1)
 firstPackageIds = packageHashTable.getItemsByAddress(tools.initialAddress(distanceObject))
 truck1.loadPackages(firstPackageIds, packageHashTable)
 
+#WELCOME SCREEN
 userInput = ui.welcomeScreen(truck1)
 if userInput != '1':
     raise SystemExit(0)
 
-userInput = ui.mainMenu()
-if userInput == '1':
-    ui.manualPackageLoading(truck1, packageHashTable)
+#MANUALLY LOAD TRUCK
+loadingType = input('\n** Press 1 to auto-load, press 2 to manually load packages **\n')
+if loadingType == '1':
+    truck1, packageHashTable = ui.autoPackageLoading(truck1, packageHashTable)
+else:
+    runManualPackageLoading = True
+    while runManualPackageLoading:
+        truck1, packageHashTable, runManualPackageLoading = ui.manualPackageLoading(truck1, packageHashTable)
 
 
+#SET TIME FOR DEPARTURE
+hour, minute = ui.setTruckDepartingTime()
+packageHashTable.runningTime = timedelta(hours = hour, minutes = minute)
+
+#DELIVER PACKAGES
+print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
+truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
+
+#GO TO MAIN MENU
+# userInput = ui.mainMenu()
+# if userInput == '1':
+    # ui.manualPackageLoading(truck1, packageHashTable)
+
+
+tools.checkPackageStatus(packageHashTable, '3')
+print('mileage: ',round(truck1.mileage,1), ' time: ',packageHashTable.runningTime)
 
 
 # print('delivered package id: ',truck1.deliverPackage())
@@ -39,7 +62,7 @@ if userInput == '1':
 # print(packageList)
 
 #THIS WORKS - PRINTOUT LIST OF ALL PACKAGE STATUSES
-# tools.statusOfAllPackages(packageHashTable)
+tools.statusOfAllPackages(packageHashTable)
 
 #THIS WORKS - PRINTS THE ADDRESS OF THE INITIAL PACKAGE, SHORTEST OR LONGEST
 # shortestAddress = tools.initialAddress(distanceObject)

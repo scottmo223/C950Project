@@ -1,6 +1,8 @@
 # Robert S Morales 000954923
 # This is the hash table
 
+from datetime import timedelta
+
 class HashTable():
     """
     A Custom hash table. The default length is 1000, but
@@ -12,6 +14,7 @@ class HashTable():
         self.packagesAtHub = []
         self.packagesOnTruck = []
         self.packagesDelivered = []
+        self.runningTime = None
 
     def addItem(self, data):
         index = self.getIndex(data.packageId)
@@ -43,3 +46,9 @@ class HashTable():
     def getIndex(self, key): 
         index = hash(str(key)) % len(self.array)
         return index
+
+    def deliverPackage(self, key, time):
+        self.packagesOnTruck.remove(key)
+        self.packagesDelivered.append(key)
+        self.runningTime += time
+        self.getItem(key).deliveryTime = self.runningTime

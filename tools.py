@@ -4,6 +4,7 @@ import csv
 import hashTable
 import Package
 import AddressDistances
+from datetime import timedelta
 
 def readCSVFile(file, distanceTable = False):
     with open(file, newline='') as csvfile:
@@ -68,7 +69,7 @@ def initialAddress(distanceObject, shortestDistance = True):
         distanceIndex = findShortestDistance(firstColumnDistances, True)
     else:
         distanceIndex = findLongestDistance(firstColumnDistances)
-    return distanceObject.indexAddressMap.get(distanceIndex)
+    return distanceObject.indexAddressMap[distanceIndex]
 
 def nextAddress(distanceObject, lastAddress):
     """
@@ -96,6 +97,7 @@ def checkPackageStatus(packageHashTable, passedId):
     print('weight: '.ljust(11, ' '), currentPackage.packageWeight)
     print('status: '.ljust(11, ' '), currentPackage.deliveryStatus)
     print('deadline: '.ljust(11, ' '), currentPackage.deliveryDeadline)
+    print('delivered:'.ljust(11, ' '), currentPackage.deliveryTime)
 
 def statusOfAllPackages(packageHashTable):
     #numberPackages = packageHashTable.keyAddressMap.count()
@@ -108,3 +110,35 @@ def statusOfAllPackages(packageHashTable):
         deliveryAddress = currentPackage.deliveryAddress
         print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryAddress)
     print()
+
+def deliverPackage(truck, packageHashTable, distanceObject):
+    packageCounter = len(truck.packagesOnTruck)
+    
+    for i in range(0, packageCounter):
+        packageKey = truck.packagesOnTruck[0]
+        packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
+        lastAddressIndex = distanceObject.addressesVisited[-1]
+        currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
+        # Need the longest distance to be the first index
+        if currentAddressIndex < lastAddressIndex:
+            distanceTraveled = float(distanceObject.addressDistanceMatrix[lastAddressIndex][currentAddressIndex])
+        else:
+            distanceTraveled = float(distanceObject.addressDistanceMatrix[currentAddressIndex][lastAddressIndex])
+        time = calculateTime(truck.mph, distanceTraveled)
+
+        packageHashTable.deliverPackage(packageKey, time)
+        truck.deliverPackage()
+        distanceObject.deliverPackage(currentAddressIndex)
+        truck.mileage += distanceTraveled
+
+        # print(f'Delivery {i+1}: ',packageAddress,'Delivering package ',packageKey)
+        # print('Miles traveled: ',round(truck.mileage,1),' Time Delivered: ',packageHashTable.runningTime)
+    
+    return truck, packageHashTable, distanceObject
+        
+
+def calculateTime(mph, distance):
+    timeInHours = distance/mph
+    time = timedelta(hours = timeInHours)
+    print('time: ', time)
+    return time
