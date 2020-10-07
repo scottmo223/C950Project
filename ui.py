@@ -34,7 +34,6 @@ def welcomeScreen(truck):
 
     return input()
  
-
 def manualPackageLoading(truck, packageHashTable):
     if len(packageHashTable.packagesAtHub) < 1:
         print('There are no more packages left to load.')
