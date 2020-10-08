@@ -23,17 +23,14 @@ def readCSVFile(file, distanceTable = False):
                 newObject.addItem(newPackage)
             return newObject
 
-def findShortestDistance(options, initialAddress = False):
+def findShortestDistance(options):
     """
     Finds the shortest distance in an array of numbers. 
     Returns the index of the lowest number - not starting 
     from 0, but from 1.
     If this is the inital address list, set initialAddress = True.
     """
-    if initialAddress == True:
-        shortestDistance = float(options[2])    
-    else:    
-        shortestDistance = float(options[1])
+    shortestDistance = float(options[1])
     shortestDistanceIndex = 0
     for index, distance in enumerate(options):
         if distance != '' and float(distance) < shortestDistance:
@@ -100,6 +97,10 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
         distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][1]))
+    #Truck 2 will start from the farthest distance
+    # if truck.truckId == 2:
+        # tempPackageListIndex = findLongestDistance(distancesFromStartAddress)
+    # else:
     tempPackageListIndex = findShortestDistance(distancesFromStartAddress)
     sortedPackagesList.append(packagesOnTruck[tempPackageListIndex])
     startPackageKey = packagesOnTruck.pop(tempPackageListIndex)
