@@ -30,7 +30,7 @@ def findShortestDistance(options):
     from 0, but from 1.
     If this is the inital address list, set initialAddress = True.
     """
-    shortestDistance = float(options[1])
+    shortestDistance = float(options[0])
     shortestDistanceIndex = 0
     for index, distance in enumerate(options):
         if distance != '' and float(distance) < shortestDistance:
@@ -44,8 +44,8 @@ def findLongestDistance(options):
     Returns the index of the highest number - not starting 
     from 0, but from 1.
     """
-    longestDistance = float(0)
-    longestDistanceIndex = 1
+    longestDistance = float(options[0])
+    longestDistanceIndex = 0
     for index, distance in enumerate(options[1:], start = 1):
         if distance != '' and float(distance) > 0 and float(distance) > longestDistance:
             longestDistance = float(distance)

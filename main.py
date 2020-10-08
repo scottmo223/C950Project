@@ -20,7 +20,7 @@ if userInput != '1':
 
 
 #CREATE TRUCK 1
-truck1 = Truck.Truck(1,13)
+truck1 = Truck.Truck(1, 13) #used to be only 13 packages
 requiredPackages = ['1','29','30','31','34','40','13','14','15','16','19','20','21'] # must go out for delivery on the same truck at the same time
 truck1.loadPackages(requiredPackages, packageHashTable)
 
