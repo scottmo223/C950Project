@@ -49,6 +49,11 @@ tools.setDepartureTime(truck1, packageHashTable, timedelta(hours = 8, minutes = 
 tools.setDepartureTime(truck2, packageHashTable, timedelta(hours = 9, minutes = 5))
 tools.setDepartureTime(truck3, packageHashTable, timedelta(hours = 10, minutes = 20))
 
+#ADDRESS CHANGE
+package = packageHashTable.getItem('9')
+package.deliveryAddress = '410 S State St'
+package.deliveryZipcode = '84111'
+
 #DELIVER PACKAGES
 truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
 truck2, packageHashTable, distanceObject = tools.deliverPackage(truck2, packageHashTable, distanceObject)
