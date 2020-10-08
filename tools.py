@@ -158,3 +158,9 @@ def calculateTime(mph, distance):
     timeInHours = distance/mph
     time = timedelta(hours = timeInHours)
     return time
+
+def setDepartureTime(truck, packageHashTable, time):
+    truck.setDepartureTime(time)
+    for packageKey in truck.packagesOnTruck:
+        package = packageHashTable.getItem(packageKey)
+        package.departureTime = time

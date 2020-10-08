@@ -21,28 +21,25 @@ if userInput != '1':
 
 #CREATE TRUCK 1
 truck1 = Truck.Truck(1,13)
-truck1.setDepartureTime(timedelta(hours = 8, minutes = 0))
 requiredPackages = ['1','29','30','31','34','40','13','14','15','16','19','20','21'] # must go out for delivery on the same truck at the same time
 truck1.loadPackages(requiredPackages, packageHashTable)
 
 #CREATE TRUCK 2
 truck2 = Truck.Truck(2)
-truck2.setDepartureTime(timedelta(hours = 9, minutes = 5))
 requiredPackages = ['3','18','36','37','38','6','25','26','28','32','33'] # can only be loaded on truck 2; cannot leave the hub before 9:05am
 truck2.loadPackages(requiredPackages, packageHashTable)
 
 #CREATE TRUCK 3
 truck3 = Truck.Truck(3)
-truck3.setDepartureTime(timedelta(hours = 10, minutes = 20))
 requiredPackages = ['8','9'] # cannot leave until 10:20
 truck3.loadPackages(requiredPackages, packageHashTable)
-
 
 #AUTO LOAD REST OF PACKAGES ON TRUCKS
 truck1, packageHashTable = ui.autoPackageLoading(truck1, packageHashTable)
 truck2, packageHashTable = ui.autoPackageLoading(truck2, packageHashTable)
 truck3, packageHashTable = ui.autoPackageLoading(truck3, packageHashTable)
 
+#SORT PACKAGES FOR OPTIMIZED DELIVERY ROUTE
 truck1 = tools.sortPackagesOnTruck(truck1, packageHashTable, distanceObject)
 truck2 = tools.sortPackagesOnTruck(truck2, packageHashTable, distanceObject)
 truck3 = tools.sortPackagesOnTruck(truck3, packageHashTable, distanceObject)
@@ -51,7 +48,9 @@ truck3 = tools.sortPackagesOnTruck(truck3, packageHashTable, distanceObject)
 # print(truck3.packagesOnTruck)
 
 # SET TIME FOR DEPARTURE
-packageHashTable.runningTime = timedelta(hours = 8, minutes = 0)
+tools.setDepartureTime(truck1, packageHashTable, timedelta(hours = 8, minutes = 0))
+tools.setDepartureTime(truck2, packageHashTable, timedelta(hours = 9, minutes = 5))
+tools.setDepartureTime(truck3, packageHashTable, timedelta(hours = 10, minutes = 20))
 
 #DELIVER PACKAGES
 # print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
@@ -60,9 +59,11 @@ truck2, packageHashTable, distanceObject = tools.deliverPackage(truck2, packageH
 truck3, packageHashTable, distanceObject = tools.deliverPackage(truck3, packageHashTable, distanceObject)
 
 #PRINT THE DELIVERY DETAILS
-print('\n\n\nStarted at 8am, ended at: ',packageHashTable.runningTime)
-print('\nTruck 1 mileage: ',round(truck1.mileage,1))
+print('\n\n\nTruck 1 left at ',truck1.timeLeftHub,' and finished delivery at: ',truck1.runningTime)
+print('Truck 1 mileage: ',round(truck1.mileage,1))
+print('\nTruck 2 left at ',truck2.timeLeftHub,' and finished delivery at: ',truck2.runningTime)
 print('Truck 2 mileage: ',round(truck2.mileage,1))
+print('\nTruck 3 left at ',truck3.timeLeftHub,' and finished delivery at: ',truck3.runningTime)
 print('Truck 3 mileage: ',round(truck3.mileage,1))
 print('\nTotal Mileage: ', round((truck1.mileage+truck2.mileage+truck3.mileage),1))
 
