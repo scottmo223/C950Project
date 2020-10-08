@@ -43,9 +43,6 @@ truck3, packageHashTable = ui.autoPackageLoading(truck3, packageHashTable)
 truck1 = tools.sortPackagesOnTruck(truck1, packageHashTable, distanceObject)
 truck2 = tools.sortPackagesOnTruck(truck2, packageHashTable, distanceObject)
 truck3 = tools.sortPackagesOnTruck(truck3, packageHashTable, distanceObject)
-# print(truck1.packagesOnTruck) ###CAN DELETE THIS - FOR REFERENCE ONLY
-# print(truck2.packagesOnTruck)
-# print(truck3.packagesOnTruck)
 
 # SET TIME FOR DEPARTURE
 tools.setDepartureTime(truck1, packageHashTable, timedelta(hours = 8, minutes = 0))
@@ -53,7 +50,6 @@ tools.setDepartureTime(truck2, packageHashTable, timedelta(hours = 9, minutes = 
 tools.setDepartureTime(truck3, packageHashTable, timedelta(hours = 10, minutes = 20))
 
 #DELIVER PACKAGES
-# print('About to deliver packages: ', truck1.packagesOnTruck) # delivering packages here
 truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
 truck2, packageHashTable, distanceObject = tools.deliverPackage(truck2, packageHashTable, distanceObject)
 truck3, packageHashTable, distanceObject = tools.deliverPackage(truck3, packageHashTable, distanceObject)

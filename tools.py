@@ -55,35 +55,6 @@ def findLongestDistance(options):
             longestDistanceIndex = index
     return longestDistanceIndex
 
-def initialAddress(distances, shortestDistance = True):
-    """
-    Returns the address of recommended starting package in the
-    distances matrix. If shortestDistance = True (default) then 
-    returns the closest address, otherwise it will return the 
-    longest.
-    """
-    firstColumnDistances = []
-    for i in distances:
-        firstColumnDistances.append(i[1])
-    if shortestDistance == True:
-        distanceIndex = findShortestDistance(firstColumnDistances, True)
-    else:
-        distanceIndex = findLongestDistance(firstColumnDistances)
-    return distances.indexAddressMap[distanceIndex]
-
-def nextAddress(distanceObject, lastAddress):
-    """
-    Returns the address of the next shortest distance package delivery.
-    Requires the distanceObject table and the last loaded address.
-    """
-    lastAddressDistances = None
-    for i in distanceObject:
-        if i[0] == lastAddress.deliveryAddress:
-            lastAddressDistances = i
-            break
-    distanceIndex = findShortestDistance(lastAddressDistances)
-    return distanceObject[distanceIndex][0]
-
 def statusOfAllPackages(packageHashTable):
     print('\nID'.ljust(3, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
