@@ -18,7 +18,6 @@ userInput = ui.welcomeScreen()
 if userInput != '1':
     raise SystemExit(0)
 
-
 #CREATE TRUCK 1
 truck1 = Truck.Truck(1,14) #used to be only 13 packages
 requiredPackages = ['1','29','30','31','34','40','13','14','15','16','19','20','21','37'] # must go out for delivery on the same truck at the same time
@@ -72,8 +71,3 @@ print('\nTotal Mileage: ', round((truck1.mileage+truck2.mileage+truck3.mileage),
 ui.mainMenu(packageHashTable)
 
 raise SystemExit(0)
-
-
-
-
-

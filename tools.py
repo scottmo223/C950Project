@@ -38,20 +38,6 @@ def findShortestDistance(options):
             shortestDistanceIndex = index
     return shortestDistanceIndex
 
-def findLongestDistance(options):
-    """
-    Finds the longest distance in an array of numbers. 
-    Returns the index of the highest number - not starting 
-    from 0, but from 1.
-    """
-    longestDistance = float(options[0])
-    longestDistanceIndex = 0
-    for index, distance in enumerate(options[1:], start = 1):
-        if distance != '' and float(distance) > 0 and float(distance) > longestDistance:
-            longestDistance = float(distance)
-            longestDistanceIndex = index
-    return longestDistanceIndex
-
 def statusOfAllPackages(packageHashTable):
     print('\nID'.ljust(3, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
@@ -97,10 +83,7 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
         distancesFromStartAddress.append(float(distanceObject.addressDistanceMatrix[currentAddressIndex][1]))
-    #Truck 2 will start from the farthest distance
-    # if truck.truckId == 2:
-        # tempPackageListIndex = findLongestDistance(distancesFromStartAddress)
-    # else:
+    
     tempPackageListIndex = findShortestDistance(distancesFromStartAddress)
     sortedPackagesList.append(packagesOnTruck[tempPackageListIndex])
     startPackageKey = packagesOnTruck.pop(tempPackageListIndex)

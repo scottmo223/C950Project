@@ -30,7 +30,6 @@ def manualPackageLoading(truck, packageHashTable):
     print('\nPackages left to load:\n', packageHashTable.packagesAtHub)
 def checkPackageStatus(packageHashTable):
     packageId = input('\nEnter the package ID: ')
-    # print('\nPlease use 24Hr time in this format: ####    ex: 1346')
     package = packageHashTable.getItem(packageId)
     
     print('\nid: '.ljust(11, ' '), package.packageId)
@@ -70,13 +69,3 @@ def mainMenu(packageHashTable):
             tools.statusOfAllPackages(packageHashTable)
         elif userInput == '3':
             pass
-    
-# def setTruckDepartingTime():
-#     print('\n\nWhat time should the truck depart?')
-#     print('Please use 24Hr time in this format: ####    ex: 1346')
-#     userDepartureTime = input()
-#     hour = int(userDepartureTime[:2])
-#     minute = int(userDepartureTime[2:])
-#     return hour, minute
-
-
