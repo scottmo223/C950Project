@@ -85,9 +85,7 @@ def nextAddress(distanceObject, lastAddress):
     return distanceObject[distanceIndex][0]
 
 def statusOfAllPackages(packageHashTable):
-    #numberPackages = packageHashTable.keyAddressMap.count()
-    print()
-    print('ID'.ljust(3, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '), 'Address')
+    print('\nID'.ljust(3, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
         packageId = currentPackage.packageId
@@ -100,8 +98,9 @@ def statusOfAllPackages(packageHashTable):
 def deliverPackage(truck, packageHashTable, distanceObject):
     packageCounter = len(truck.packagesOnTruck)
     
-    for i in range(0, packageCounter):
+    while packageCounter > 0:
         packageKey = truck.packagesOnTruck[0]
+        deliveredPackage = packageHashTable.getItem(packageKey)
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         lastAddressIndex = truck.addressesVisited[-1]
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
@@ -110,13 +109,12 @@ def deliverPackage(truck, packageHashTable, distanceObject):
             distanceTraveled = float(distanceObject.addressDistanceMatrix[lastAddressIndex][currentAddressIndex])
         else:
             distanceTraveled = float(distanceObject.addressDistanceMatrix[currentAddressIndex][lastAddressIndex])
+        
         time = calculateTime(truck.mph, distanceTraveled)
 
-        packageHashTable.deliverPackage(packageKey, time)
-        truck.deliverPackage(currentAddressIndex)
-        # distanceObject.deliverPackage(currentAddressIndex)
-        truck.mileage += distanceTraveled
-
+        packageHashTable.deliverPackage(packageKey)
+        truck.deliverPackage(currentAddressIndex, time, distanceTraveled, deliveredPackage)
+        packageCounter -= 1
     return truck, packageHashTable, distanceObject
         
 
@@ -153,6 +151,7 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
         startAddressKey = nextAddressKey
     sortedPackagesList.append(packagesOnTruck[0])
     truck.packagesOnTruck = sortedPackagesList
+    print('sorted list: ',truck.packagesOnTruck)
     return truck
 
 def calculateTime(mph, distance):

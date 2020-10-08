@@ -21,16 +21,19 @@ if userInput != '1':
 
 #CREATE TRUCK 1
 truck1 = Truck.Truck(1,13)
+truck1.setDepartureTime(timedelta(hours = 8, minutes = 0))
 requiredPackages = ['1','29','30','31','34','40','13','14','15','16','19','20','21'] # must go out for delivery on the same truck at the same time
 truck1.loadPackages(requiredPackages, packageHashTable)
 
 #CREATE TRUCK 2
 truck2 = Truck.Truck(2)
+truck2.setDepartureTime(timedelta(hours = 9, minutes = 5))
 requiredPackages = ['3','18','36','37','38','6','25','26','28','32','33'] # can only be loaded on truck 2; cannot leave the hub before 9:05am
 truck2.loadPackages(requiredPackages, packageHashTable)
 
 #CREATE TRUCK 3
 truck3 = Truck.Truck(3)
+truck3.setDepartureTime(timedelta(hours = 10, minutes = 20))
 requiredPackages = ['8','9'] # cannot leave until 10:20
 truck3.loadPackages(requiredPackages, packageHashTable)
 

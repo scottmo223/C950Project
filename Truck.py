@@ -1,8 +1,6 @@
 # Robert S Morales 000954923
 # Truck Class
 
-import hashTable
-
 class Truck:
     def __init__(self, truckId, capacity = 16):
         """
@@ -16,6 +14,7 @@ class Truck:
         self.mileage = 0
         self.addressesVisited = [1]
         self.timeLeftHub = None
+        self.runningTime = None
 
     def loadPackages(self, packageIds, packageHashTable):
         """
@@ -29,14 +28,21 @@ class Truck:
             packageHashTable.packagesAtHub.remove(packageId)
         return packageHashTable
 
-    def deliverPackage(self, addressIndex):
+    def deliverPackage(self, addressIndex, time, distanceTraveled, package):
         """
         Removes a package from the front of the queue and returns the package key.
         """
         if self.addressesVisited.count(addressIndex) > 0:   
-            #if already at this address, do nothing
+            #if already a package to this address, do nothing
             pass
         else:
             self.addressesVisited.append(int(addressIndex))
             self.packagesDelivered.append(self.packagesOnTruck[0])
-        return self.packagesOnTruck.pop(0)
+            self.runningTime += time
+            self.mileage += distanceTraveled
+        self.packagesOnTruck.pop(0)
+        package.deliveryTime = self.runningTime
+
+    def setDepartureTime(self, time):
+        self.timeLeftHub = time
+        self.runningTime = time
