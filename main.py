@@ -20,13 +20,13 @@ if userInput != '1':
 
 
 #CREATE TRUCK 1
-truck1 = Truck.Truck(1, 13) #used to be only 13 packages
-requiredPackages = ['1','29','30','31','34','40','13','14','15','16','19','20','21'] # must go out for delivery on the same truck at the same time
+truck1 = Truck.Truck(1,14) #used to be only 13 packages
+requiredPackages = ['1','29','30','31','34','40','13','14','15','16','19','20','21','37'] # must go out for delivery on the same truck at the same time
 truck1.loadPackages(requiredPackages, packageHashTable)
 
 #CREATE TRUCK 2
-truck2 = Truck.Truck(2)
-requiredPackages = ['3','18','36','37','38','6','25','26','28','32','33'] # can only be loaded on truck 2; cannot leave the hub before 9:05am
+truck2 = Truck.Truck(2,13)
+requiredPackages = ['3','18','36','38','6','25','26','28','32','33'] # can only be loaded on truck 2; cannot leave the hub before 9:05am
 truck2.loadPackages(requiredPackages, packageHashTable)
 
 #CREATE TRUCK 3
