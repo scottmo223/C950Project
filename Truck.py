@@ -10,10 +10,12 @@ class Truck:
         """
         self.truckId = truckId
         self.packagesOnTruck = []
+        self.packagesDelivered = []
         self.truckCapacity = capacity
         self.mph = 18
         self.mileage = 0
         self.addressesVisited = [1]
+        self.timeLeftHub = None
 
     def loadPackages(self, packageIds, packageHashTable):
         """
@@ -36,4 +38,5 @@ class Truck:
             pass
         else:
             self.addressesVisited.append(int(addressIndex))
+            self.packagesDelivered.append(self.packagesOnTruck[0])
         return self.packagesOnTruck.pop(0)

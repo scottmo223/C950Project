@@ -84,31 +84,17 @@ def nextAddress(distanceObject, lastAddress):
     distanceIndex = findShortestDistance(lastAddressDistances)
     return distanceObject[distanceIndex][0]
 
-def checkPackageStatus(packageHashTable, passedId):
-    """
-    Printout of a package's status. passedId should be a string like '4'
-    """
-    currentPackage = packageHashTable.getItem(passedId)
-    print()
-    print('id: '.ljust(11, ' '), currentPackage.packageId)
-    print('address: '.ljust(11, ' '), currentPackage.deliveryAddress)
-    print('city: '.ljust(11, ' '), currentPackage.deliveryCity)
-    print('zip: '.ljust(11, ' '), currentPackage.deliveryZipcode)
-    print('weight: '.ljust(11, ' '), currentPackage.packageWeight)
-    print('status: '.ljust(11, ' '), currentPackage.deliveryStatus)
-    print('deadline: '.ljust(11, ' '), currentPackage.deliveryDeadline)
-    print('delivered:'.ljust(11, ' '), currentPackage.deliveryTime)
-
 def statusOfAllPackages(packageHashTable):
     #numberPackages = packageHashTable.keyAddressMap.count()
     print()
-    print('ID'.ljust(3, ' '),'Status'.ljust(11, ' '), 'Address')
+    print('ID'.ljust(3, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
         packageId = currentPackage.packageId
         deliveryStatus = currentPackage.deliveryStatus
+        deliveryTime = str(currentPackage.deliveryTime)
         deliveryAddress = currentPackage.deliveryAddress
-        print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryAddress)
+        print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryTime.ljust(10,' '),deliveryAddress)
     print()
 
 def deliverPackage(truck, packageHashTable, distanceObject):
@@ -119,7 +105,6 @@ def deliverPackage(truck, packageHashTable, distanceObject):
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         lastAddressIndex = truck.addressesVisited[-1]
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
-        print(f'last address: {lastAddressIndex} current Address: {currentAddressIndex}')
         # Need the longest distance to be the first index
         if currentAddressIndex < lastAddressIndex:
             distanceTraveled = float(distanceObject.addressDistanceMatrix[lastAddressIndex][currentAddressIndex])

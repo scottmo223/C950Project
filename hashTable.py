@@ -47,7 +47,9 @@ class HashTable():
         return index
 
     def deliverPackage(self, key, time):
+        packagesDelivered = self.getItem(key)
         self.packagesOnTruck.remove(key)
         self.packagesDelivered.append(key)
         self.runningTime += time
-        self.getItem(key).deliveryTime = self.runningTime
+        packagesDelivered.deliveryTime = self.runningTime
+        packagesDelivered.deliveryStatus = 'Delivered'
