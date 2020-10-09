@@ -50,8 +50,9 @@ tools.setDepartureTime(truck3, packageHashTable, timedelta(hours = 10, minutes =
 
 #ADDRESS CHANGE
 package = packageHashTable.getItem('9')
-package.deliveryAddress = '410 S State St'
+newAddress = package.deliveryAddress = '410 S State St'
 package.deliveryZipcode = '84111'
+print(f'\n\n\n*** UPDATE ***   Package {package.packageId}\'s address was just changed to {newAddress}.   *** UPDATE ***\n')
 
 #DELIVER PACKAGES
 truck1, packageHashTable, distanceObject = tools.deliverPackage(truck1, packageHashTable, distanceObject)
