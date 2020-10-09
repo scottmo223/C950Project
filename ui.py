@@ -47,9 +47,9 @@ def mainMenu(packageHashTable):
         print('''
         
         Choose an option:
-            1 Detailed status of a package
-            2 Status of all packages
-            3 Choose time to check package statuses
+            1 Current detailed status of a package
+            2 Current status of all packages
+            3 Status check at a given time
             0 Quit the application
         ''')
         userInput = input()
