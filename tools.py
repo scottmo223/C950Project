@@ -133,7 +133,6 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
         startAddressKey = nextAddressKey
     sortedPackagesList.append(packagesOnTruck[0])
     truck.packagesOnTruck = sortedPackagesList
-    print('sorted list: ',truck.packagesOnTruck)
     return truck
 
 def calculateTime(mph, distance):
