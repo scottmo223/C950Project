@@ -14,5 +14,4 @@ class Package:
         self.packageWeight = weight
         self.deliveryTime = None
         self.timeLeftHub = None
-        self.deliveryTime = None
         self.deliveryStatus = 'At the hub'
