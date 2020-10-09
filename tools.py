@@ -39,14 +39,15 @@ def findShortestDistance(options):
     return shortestDistanceIndex
 
 def statusOfAllPackages(packageHashTable):
-    print('\nID'.ljust(3, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '), 'Address')
+    print('\nID'.ljust(4, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '),'Deadline'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
         packageId = currentPackage.packageId
         deliveryStatus = currentPackage.deliveryStatus
         deliveryTime = str(currentPackage.deliveryTime)
+        deadline = currentPackage.deliveryDeadline
         deliveryAddress = currentPackage.deliveryAddress
-        print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryTime.ljust(10,' '),deliveryAddress)
+        print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryTime.ljust(10,' '), deadline.ljust(10,' '), deliveryAddress)
     print()
 
 def deliverPackage(truck, packageHashTable, distanceObject):
