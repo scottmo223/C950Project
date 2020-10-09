@@ -52,20 +52,29 @@ def statusOfAllPackages(packageHashTable):
 
 def statusOfAllPackagesAtGivenTime(packageHashTable):
     print('\nEnter a time - use 24 hour format ####      Example: 1340')
-    userDepartureTime = input()
-    hour = int(userDepartureTime[:2])
-    minute = int(userDepartureTime[2:])
-    
+    userInput = input()
+    hour = int(userInput[:2])
+    minute = int(userInput[2:])
+    userInputTime = timedelta(hours = hour, minutes = minute)
 
-    print('\nID'.ljust(4, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '),'Deadline'.ljust(10,' '), 'Address')
+    print('\nID'.ljust(4, ' '),'Status'.ljust(12, ' '),'Delivered'.ljust(10,' '),'Deadline'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
         packageId = currentPackage.packageId
         deliveryStatus = currentPackage.deliveryStatus
-        deliveryTime = str(currentPackage.deliveryTime)
+        deliveryTime = currentPackage.deliveryTime
+        departureTime = currentPackage.departureTime
         deadline = currentPackage.deliveryDeadline
         deliveryAddress = currentPackage.deliveryAddress
-        print(packageId.ljust(3, ' '), deliveryStatus.ljust(11, ' '), deliveryTime.ljust(10,' '), deadline.ljust(10,' '), deliveryAddress)
+        
+        if userInputTime < departureTime :
+            deliveryStatus = 'At the hub'
+            deliveryTime = ''
+        elif userInputTime >= departureTime and userInputTime < deliveryTime:
+            deliveryStatus = 'En-route'
+            deliveryTime = ''
+        
+        print(packageId.ljust(3, ' '), deliveryStatus.ljust(12, ' '), str(deliveryTime).ljust(10,' '), deadline.ljust(10,' '), deliveryAddress)
     print()
 
 def deliverPackage(truck, packageHashTable, distanceObject):
