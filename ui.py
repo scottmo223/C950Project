@@ -37,7 +37,8 @@ def checkPackageStatus(packageHashTable):
 
 def autoPackageLoading(truck, packageHashTable):
     '''
-    Fills a truck up to its capacity with packages, or whatever packages there are left to load.
+    Fills a truck up to its capacity with packages stored in the packageHashTable. Packages are
+    loaded onto the truck until the truck is full or there are no more packages left to load.
     '''
     packagesToLoad = packageHashTable.packagesAtHub
     truckCapacity = truck.truckCapacity - len(truck.packagesOnTruck)

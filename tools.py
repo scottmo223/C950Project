@@ -101,7 +101,7 @@ def deliverPackage(truck, packageHashTable, distanceObject):
     while packageCounter > 0:
         packageKey = truck.packagesOnTruck[0]
         deliveredPackage = packageHashTable.getItem(packageKey)
-        packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
+        packageAddress = deliveredPackage.deliveryAddress
         lastAddressIndex = truck.addressesVisited[-1]
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
         # Need the longest distance to be the first index of distance matrix
