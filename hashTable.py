@@ -1,5 +1,4 @@
 # Robert S Morales 000954923
-# This is the hash table
 
 class HashTable():
     """
@@ -24,15 +23,15 @@ class HashTable():
     def getItem(self, key):
         index = self.getIndex(key)
         if self.array[index] is None:
-            return print('no worky')
+            return print('Could not fetch item.')
         for i in self.array[index]:
             if i.packageId == key:
                 return i
 
     def getItemsByAddress(self, address):
-        """
+        '''
         Returns a list of package matching the given address.
-        """
+        '''
         matchingAddresses = []
         for i in self.keyAddressMap:
             if i[1] == address:
@@ -40,6 +39,9 @@ class HashTable():
         return matchingAddresses
 
     def getIndex(self, key): 
+        '''
+        Return the index of a given package key in the hash table.
+        '''
         index = hash(str(key)) % len(self.array)
         return index
 

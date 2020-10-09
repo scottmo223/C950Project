@@ -1,5 +1,4 @@
 # Robert S Morales 000954923
-# This is the User Interface
 
 import tools
 
@@ -20,6 +19,9 @@ def welcomeScreen():
     return input()
  
 def checkPackageStatus(packageHashTable):
+    '''
+    Takes user input of package key and returns detailed information on the package.
+    '''
     packageId = input('\nEnter the package ID: ')
     package = packageHashTable.getItem(packageId)
     
@@ -34,6 +36,9 @@ def checkPackageStatus(packageHashTable):
     print('deadline: '.ljust(11, ' '), package.deliveryDeadline)
 
 def autoPackageLoading(truck, packageHashTable):
+    '''
+    Fills a truck up to its capacity with packages, or whatever packages there are left to load.
+    '''
     packagesToLoad = packageHashTable.packagesAtHub
     truckCapacity = truck.truckCapacity - len(truck.packagesOnTruck)
     nextPackagesToLoad = packagesToLoad[:truckCapacity]
@@ -42,6 +47,9 @@ def autoPackageLoading(truck, packageHashTable):
     return truck, packageHashTable
 
 def mainMenu(packageHashTable):
+    '''
+    After the application has delivered the packages, give the user option to qry package data.
+    '''
     userInput = '1'
     while userInput in ['1','2','3']:
         print('''

@@ -7,6 +7,10 @@ import AddressDistances
 from datetime import timedelta
 
 def readCSVFile(file, distanceTable = False):
+    '''
+    Takes csv file data for packages or city distance matrix and creates either a
+    package hash table or a distance matrix class to hold the data.
+    '''
     with open(file, newline='') as csvfile:
         csvReader = csv.reader(csvfile, delimiter=',')
         
@@ -26,20 +30,24 @@ def readCSVFile(file, distanceTable = False):
 def findShortestDistance(options):
     """
     Finds the shortest distance in an array of numbers. 
-    Returns the index of the lowest number - not starting 
-    from 0, but from 1.
-    If this is the inital address list, set initialAddress = True.
+    Returns the index of the lowest number.
     """
     shortestDistance = float(options[0])
     shortestDistanceIndex = 0
+    
     for index, distance in enumerate(options):
         if distance != '' and float(distance) < shortestDistance:
             shortestDistance = float(distance)
             shortestDistanceIndex = index
+    
     return shortestDistanceIndex
 
 def statusOfAllPackages(packageHashTable):
+    '''
+    Prints out the end status of all packages in the package hash table.
+    '''
     print('\nID'.ljust(4, ' '),'Status'.ljust(11, ' '),'Delivered'.ljust(10,' '),'Deadline'.ljust(10,' '), 'Address')
+    
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
         packageId = currentPackage.packageId
@@ -51,13 +59,18 @@ def statusOfAllPackages(packageHashTable):
     print()
 
 def statusOfAllPackagesAtGivenTime(packageHashTable):
+    '''
+    User selects a time to display data snapshot for all packages in the package hash table at the given time.
+    '''
     print('\nEnter a time - use 24 hour format ####      Example: 1340')
     userInput = input()
     hour = int(userInput[:2])
     minute = int(userInput[2:])
     userInputTime = timedelta(hours = hour, minutes = minute)
+    
     print(f'\n\t--- Status of all packages at {userInput} ---')
     print('\nID'.ljust(4, ' '),'Status'.ljust(12, ' '),'Delivered'.ljust(10,' '),'Deadline'.ljust(10,' '), 'Address')
+    
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
         packageId = currentPackage.packageId
@@ -113,12 +126,16 @@ def deliverPackage(truck, packageHashTable, distanceObject):
     return truck, packageHashTable, distanceObject
 
 def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
+    '''
+    Sorts the packages on a given truck using a nearest neighbor algorithm, starting from the hub.
+    '''
     sortedPackagesList = []
     distancesFromStartAddress = []
     packagesOnTruck = truck.packagesOnTruck
     startAddressKey = truck.addressesVisited[0] 
     nextAddressKey = startAddressKey
-    #find shortest distance from hub
+    
+    #Find shortest distance from hub
     for packageKey in packagesOnTruck:
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
@@ -127,11 +144,13 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
     tempPackageListIndex = findShortestDistance(distancesFromStartAddress)
     sortedPackagesList.append(packagesOnTruck[tempPackageListIndex])
     startPackageKey = packagesOnTruck.pop(tempPackageListIndex)
-    #Now the rest of the packages
+    
+    #Sort the rest of the packages
     while len(packagesOnTruck) > 1:
         distancesFromStartAddress.clear()
         startPackageAddress = packageHashTable.getItem(startPackageKey).deliveryAddress
         startPackageAddressIndex = distanceObject.indexAddressMap.index(startPackageAddress)
+
         for packageKey in packagesOnTruck:
             packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
             currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
@@ -144,16 +163,25 @@ def sortPackagesOnTruck(truck, packageHashTable, distanceObject):
         sortedPackagesList.append(packagesOnTruck[tempPackageListIndex])
         startPackageKey = packagesOnTruck.pop(tempPackageListIndex)
         startAddressKey = nextAddressKey
+    
     sortedPackagesList.append(packagesOnTruck[0])
     truck.packagesOnTruck = sortedPackagesList
+    
     return truck
 
 def calculateTime(mph, distance):
+    '''
+    Returns the time traveled for a given distance and speed.
+    '''
     timeInHours = distance/mph
     time = timedelta(hours = timeInHours)
+    
     return time
 
 def setDepartureTime(truck, packageHashTable, time):
+    '''
+    Sets the departure time from the hub for all packages on a given truck.
+    '''
     truck.setDepartureTime(time)
     for packageKey in truck.packagesOnTruck:
         package = packageHashTable.getItem(packageKey)

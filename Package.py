@@ -1,5 +1,4 @@
 # Robert S Morales 000954923
-# Package Class
 
 class Package:
     def __init__(self, packageId, address, city, zipcode, deadline, weight):
