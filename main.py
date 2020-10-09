@@ -46,7 +46,7 @@ truck3 = tools.sortPackagesOnTruck(truck3, packageHashTable, distanceObject)
 # SET TIME FOR DEPARTURE
 tools.setDepartureTime(truck1, packageHashTable, timedelta(hours = 8, minutes = 0))
 tools.setDepartureTime(truck2, packageHashTable, timedelta(hours = 9, minutes = 5))
-tools.setDepartureTime(truck3, packageHashTable, timedelta(hours = 10, minutes = 20))
+tools.setDepartureTime(truck3, packageHashTable, timedelta(hours = 11, minutes = 0))
 
 #ADDRESS CHANGE
 package = packageHashTable.getItem('9')
