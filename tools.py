@@ -56,7 +56,7 @@ def statusOfAllPackagesAtGivenTime(packageHashTable):
     hour = int(userInput[:2])
     minute = int(userInput[2:])
     userInputTime = timedelta(hours = hour, minutes = minute)
-
+    print(f'\n\t--- Status of all packages at {userInput} ---')
     print('\nID'.ljust(4, ' '),'Status'.ljust(12, ' '),'Delivered'.ljust(10,' '),'Deadline'.ljust(10,' '), 'Address')
     for package in packageHashTable.keyAddressMap: 
         currentPackage = packageHashTable.getItem(package[0]) 
@@ -78,6 +78,11 @@ def statusOfAllPackagesAtGivenTime(packageHashTable):
     print()
 
 def deliverPackage(truck, packageHashTable, distanceObject):
+    '''
+    Takes an array of packages and delivers them sequentially, starting from the beginning
+    of the list (index 0). After all the packages have been delivered, the truck returns
+    to the hub.
+    '''
     packageCounter = len(truck.packagesOnTruck)
     
     while packageCounter > 0:
@@ -86,7 +91,7 @@ def deliverPackage(truck, packageHashTable, distanceObject):
         packageAddress = packageHashTable.getItem(packageKey).deliveryAddress
         lastAddressIndex = truck.addressesVisited[-1]
         currentAddressIndex = distanceObject.indexAddressMap.index(packageAddress)
-        # Need the longest distance to be the first index
+        # Need the longest distance to be the first index of distance matrix
         if currentAddressIndex < lastAddressIndex:
             distanceTraveled = float(distanceObject.addressDistanceMatrix[lastAddressIndex][currentAddressIndex])
         else:
@@ -97,6 +102,14 @@ def deliverPackage(truck, packageHashTable, distanceObject):
         packageHashTable.deliverPackage(packageKey)
         truck.deliverPackage(currentAddressIndex, time, distanceTraveled, deliveredPackage)
         packageCounter -= 1
+
+    #Return to hub logic
+    lastAddressIndex = truck.addressesVisited[-1]
+    distanceTraveled = float(distanceObject.addressDistanceMatrix[lastAddressIndex][1])
+    time = calculateTime(truck.mph, distanceTraveled)
+    truck.mileage += distanceTraveled
+    truck.runningTime += time
+
     return truck, packageHashTable, distanceObject
 
 def sortPackagesOnTruck(truck, packageHashTable, distanceObject):

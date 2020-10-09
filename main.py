@@ -60,11 +60,11 @@ truck2, packageHashTable, distanceObject = tools.deliverPackage(truck2, packageH
 truck3, packageHashTable, distanceObject = tools.deliverPackage(truck3, packageHashTable, distanceObject)
 
 #PRINT THE DELIVERY DETAILS
-print('\n\n\nTruck 1 left at ',truck1.timeLeftHub,' and finished delivery at: ',truck1.runningTime)
+print('\n\n\nTruck 1 left at ',truck1.timeLeftHub,' and returned to the hub at: ',truck1.runningTime)
 print('Truck 1 mileage: ',round(truck1.mileage,1))
-print('\nTruck 2 left at ',truck2.timeLeftHub,' and finished delivery at: ',truck2.runningTime)
+print('\nTruck 2 left at ',truck2.timeLeftHub,' and returned to the hub at: ',truck2.runningTime)
 print('Truck 2 mileage: ',round(truck2.mileage,1))
-print('\nTruck 3 left at ',truck3.timeLeftHub,' and finished delivery at: ',truck3.runningTime)
+print('\nTruck 3 left at ',truck3.timeLeftHub,' and returned to the hub at: ',truck3.runningTime)
 print('Truck 3 mileage: ',round(truck3.mileage,1))
 print('\nTotal Mileage: ', round((truck1.mileage+truck2.mileage+truck3.mileage),1))
 
