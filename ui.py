@@ -19,15 +19,6 @@ def welcomeScreen():
     ''')
     return input()
  
-def manualPackageLoading(truck, packageHashTable):
-    if len(packageHashTable.packagesAtHub) < 1:
-        print('There are no more packages left to load.')
-        return truck, packageHashTable, False
-    if truck.truckCapacity - len(truck.packagesOnTruck) < 1:
-        print('There is no more room on the truck.')
-        return truck, packageHashTable, False
-
-    print('\nPackages left to load:\n', packageHashTable.packagesAtHub)
 def checkPackageStatus(packageHashTable):
     packageId = input('\nEnter the package ID: ')
     package = packageHashTable.getItem(packageId)
