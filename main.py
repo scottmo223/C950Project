@@ -13,7 +13,7 @@ distanceTable = 'WGUPS Distance Table.csv'
 packageHashTable = tools.readCSVFile(packageFile)
 distanceObject = tools.readCSVFile(distanceTable, True) 
 
-#WELCOME SCREEN
+#SHOW WELCOME SCREEN
 userInput = ui.welcomeScreen()
 if userInput != '1':
     raise SystemExit(0)
@@ -68,7 +68,7 @@ print('\nTruck 3 left at ',truck3.timeLeftHub,' and returned to the hub at: ',tr
 print('Truck 3 mileage: ',round(truck3.mileage,1))
 print('\nTotal Mileage: ', round((truck1.mileage+truck2.mileage+truck3.mileage),1))
 
-#GO TO MAIN MENU
+#DISPLAY MAIN MENU
 ui.mainMenu(packageHashTable)
 
 raise SystemExit(0)
